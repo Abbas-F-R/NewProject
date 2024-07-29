@@ -3,9 +3,12 @@ using dotnet.Repository;
 
 namespace dotnet.Services.ProductService;
 
-public interface IProductService : IBaseService<ProductDto>
+public interface IProductService 
 {
+    Task<(ProductDto? , string? error)> Get(Guid id);
+    Task<(ProductDto?,  string? error)> Create(ProductForm entity);
+    Task<(ProductDto?,  string? error)> SoftDelete(Guid id);
     Task<(ProductDto?,  string? error)> Update( ProductUpdate update, Guid id);
-    Task<(List<ProductDto> product, int? totalCount, string? error)> FindAll(ProductFilter filter);
+    Task<(List<ProductDto> product, int? totalCount, string? error)> GetAll(ProductFilter filter);
 }
 

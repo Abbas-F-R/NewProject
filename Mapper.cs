@@ -1,5 +1,3 @@
-
-
 using dotnet.DTOs.Product;
 
 namespace dotnet
@@ -8,17 +6,16 @@ namespace dotnet
     {
         public Mapper()
         {
-        CreateMap<ProductDto, Product>();
+            CreateMap<ProductDto, Product>();
 
-        CreateMap<Product, ProductDto>();
+            CreateMap<Product, ProductDto>();
 
-        CreateMap<Product, ProductResponse>()
-            .ForMember(dest => dest.StoreName, opt => opt.MapFrom(src => src.Store.StoreName))
-            .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.CategoryName))
-            .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.ProductStatus.Status));
+            CreateMap<Product, ProductForm>()
+                .ForMember(dest => dest.StoreId, opt => opt.MapFrom(src => src.Store!.Id))
+                .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.Category!.Id))
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.ProductStatus!.Status));
 
-        CreateMap<UserDto, User>();
+            CreateMap<UserDto, User>();
         }
-        
     }
 }

@@ -19,19 +19,19 @@ namespace dotnet.Controllers
         public async Task<ActionResult<ProductDto>> GetById(Guid id) => Ok(await _productService.Get(id));
 
         [HttpPost, Authorize(Roles = "User")]
-        public async Task<IActionResult> Create(ProductDto productDto) =>
-            Ok(await _productService.Create(productDto));
+        public async Task<IActionResult> Create(ProductForm product) =>
+            Ok(await _productService.Create(product));
 
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id) => Ok(await _productService.Delete(id));
+        public async Task<IActionResult> Delete(Guid id) => Ok(await _productService.SoftDelete(id));
 
         [HttpGet]
-        public async Task<IActionResult> FindAll(ProductFilter filter) => Ok(await _productService.FindAll(filter));
+        public async Task<IActionResult> FindAll([FromQuery] ProductFilter filter) => Ok(await _productService.GetAll(filter));
 
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<ProductDto>> Update(Guid id, ProductUpdate productUpdate) =>
+        public async Task<ActionResult<ProductDto>> Update(Guid id,  ProductUpdate productUpdate) =>
             Ok(await _productService.Update(productUpdate, id));
     }
 }

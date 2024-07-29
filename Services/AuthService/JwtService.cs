@@ -1,8 +1,6 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text;
-using dotnet.Services.AuthService;
 using Microsoft.IdentityModel.Tokens;
 
 
@@ -19,61 +17,63 @@ public class JwtService : IJwtService
         _context = context;
     }
 
-    public async Task<Auth> Register(UserDto request)
+    public async Task<(Auth?, string? error)> Register(UserDto request)
     {
+        if (ValidateUserAsync(request.Username).Result != null) return (null, "Username taken ");
         string hashPassword = BCrypt.Net.BCrypt.HashPassword(request.Password);
-        var userSaved = await _context.Users.FirstOrDefaultAsync(u => u.Username == request.Username);
-        if (userSaved != null)
-        {
-            throw new ArgumentException(" username taken");
-        }
 
         var user = new User
         {
             PasswordHash = hashPassword,
             Username = request.Username,
-            Role = Role.Admin,
+            Role = Role.User,
         };
         _context.Add(user);
         await _context.SaveChangesAsync();
 
         string token = CreateToken(user);
-        RefreshToken refreshToken = GenerateRefreshToken();
-        var auth = new Auth(user, token, refreshToken);
-        return auth;
+        // RefreshToken refreshToken = GenerateRefreshToken();
+        var auth = new Auth(user, token);
+        return (auth , null);
     }
 
-    public async Task<Auth> Login(UserDto request)
+    public async Task<(Auth?, string? error)> Login(UserDto request)
     {
-        var user = await _context.Users.FirstAsync(u => u.Username == request.Username);
-        if (user.Equals(null))
-        {
-            throw new EntityNotFoundException("user not found");
-        }
-
-        if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
-        {
-            throw new Exception("Wrong password.");
-        }
-
-        string token = CreateToken(user);
-        RefreshToken refreshToken = GenerateRefreshToken();
-        var auth = new Auth(user, token, refreshToken);
-        return auth;
+        var userSaved = await ValidateUserAsync(request.Username); // Await the asynchronous call
+        if (userSaved == null) return (null, "User not found");
+        if (!BCrypt.Net.BCrypt.Verify(request.Password, userSaved.PasswordHash)) return (null, "Wrong password");
+        
+        string token = CreateToken(userSaved);
+        // RefreshToken refreshToken = GenerateRefreshToken();
+        var auth = new Auth(userSaved, token);
+        return (auth, null);
     }
+    //
+    // public async Task<(Auth?, string? error)> Login(UserDto request)
+    // {
+    //     var userSaved =  ValidateUserAsync(request.Username).Result;
+    //     if (userSaved == null) return (null, "User not found  ");
+    //
+    //     if (!BCrypt.Net.BCrypt.Verify(request.Password, userSaved.PasswordHash)) return (null, "wrong password");
+    //     
+    //     string token = CreateToken(userSaved);
+    //     RefreshToken refreshToken = GenerateRefreshToken();
+    //     var auth = new Auth(userSaved, token, refreshToken);
+    //     return (auth, null);
+    // }
 
-    public async Task<Auth> RefreshToken(string refreshToken)
-    {
-        var user = await _context.Users
-            .FirstOrDefaultAsync(u => u.RefreshToken == refreshToken);
-        if (user == null) throw new EntityNotFoundException("user not found");
-        if (user.TokenExpired < DateTime.Now) throw new UnauthorizedAccessException("  Refresh Token expired");
-
-        var token = CreateToken(user);
-        var newRefreshToken = GenerateRefreshToken();
-        var auth = new Auth(user, token, newRefreshToken);
-        return auth;
-    }
+    // public async Task<(Auth?, string? error)> RefreshToken(string refreshToken)
+    // {
+    //     var user = await _context.Users
+    //         .FirstOrDefaultAsync(u => u.RefreshToken == refreshToken);
+    //     if (user == null) return (null, "user not found");
+    //     if (user.TokenExpired < DateTime.Now) return (null, "  Refresh Token expired");
+    //
+    //     var token = CreateToken(user);
+    //     // var newRefreshToken = GenerateRefreshToken();
+    //     var auth = new Auth(user, token);
+    //     return (auth, null);
+    // }
     public string CreateToken(User user)
     {
         if (user == null)
@@ -108,13 +108,19 @@ public class JwtService : IJwtService
     }
 
 
-    public RefreshToken GenerateRefreshToken()
+    // public RefreshToken GenerateRefreshToken()
+    // {
+    //     var refreshToken = new RefreshToken
+    //     {
+    //         Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
+    //         Expires = DateTime.Now.AddDays(7)
+    //     };
+    //     return refreshToken;
+    // }
+    //
+    private async Task<User?> ValidateUserAsync(string username)
     {
-        var refreshToken = new RefreshToken
-        {
-            Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
-            Expires = DateTime.Now.AddDays(7)
-        };
-        return refreshToken;
+        var userSaved = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+        return userSaved ;
     }
 }

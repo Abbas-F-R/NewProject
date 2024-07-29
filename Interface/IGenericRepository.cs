@@ -28,17 +28,17 @@ public interface IGenericRepository <T ,  TId>
         int pageNumber = 0, int pageSize = 10, bool deleted = false
     );
 
-    Task<T> Add(T entity, Guid? userId = null);
-    Task<T> Delete(TId id, Guid? userId = null);
-    Task<T> SoftDelete(TId id, Guid? userId = null);
-    Task<T> Update(T entity, Guid? userId = null);
+    Task<T?> Add(T entity, Guid? userId = null);
+    Task<T?> Delete(TId id, Guid? userId = null);
+    Task<T?> SoftDelete(TId id, Guid? userId = null);
+    Task<T?> Update(T entity, Guid? userId = null);
 
     Task<List<TDto>> UpdateAll<TDto>(List<T> entities, Guid? userId = null);
     Task<List<T>> UpdateAll(List<T> entities, Guid? userId = null);
 
 
     Task<TDto?> Get<TDto>(Expression<Func<T, bool>> predicate, bool deleted = false);
-    Task<T> Get(Expression<Func<T, bool>> predicate, bool deleted = false);
+    Task<T?> Get(Expression<Func<T, bool>> predicate, bool deleted = false);
 
-    Task<T> Get(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>> include,
+    Task<T?> Get(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>> include,
         bool deleted = false);}

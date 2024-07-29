@@ -77,7 +77,7 @@ public class GenericRepository<T, TId> : IGenericRepository<T, TId> where T : Ba
             await query.CountAsync());
     }
 
-    public async Task<T> Add(T entity, Guid? userId = null)
+    public async Task<T?> Add(T entity, Guid? userId = null)
     {
         await _context.Set<T>().AddAsync(entity);
         try
@@ -93,7 +93,7 @@ public class GenericRepository<T, TId> : IGenericRepository<T, TId> where T : Ba
         return entity;
     }
 
-    public async Task<T> Delete(TId id, Guid? userId = null)
+    public async Task<T?> Delete(TId id, Guid? userId = null)
     {
         var result = await GetById(id);
         if (result == null) return null;
@@ -102,7 +102,7 @@ public class GenericRepository<T, TId> : IGenericRepository<T, TId> where T : Ba
         return result;
     }
 
-    public async Task<T> SoftDelete(TId id, Guid? userId = null)
+    public async Task<T?> SoftDelete(TId id, Guid? userId = null)
     {
         var result = await GetById(id);
         if (result == null) return null;
@@ -124,7 +124,7 @@ public class GenericRepository<T, TId> : IGenericRepository<T, TId> where T : Ba
         return result;
     }
 
-    public async Task<T> Update(T entity, Guid? userId = null)
+    public async Task<T?> Update(T entity, Guid? userId = null)
     {
 
         _context.Set<T>().Update(entity);
@@ -198,7 +198,7 @@ public class GenericRepository<T, TId> : IGenericRepository<T, TId> where T : Ba
         return entity;
     }
 
-    public async Task<T> Get(Expression<Func<T, bool>> predicate, bool deleted = false)
+    public async Task<T?> Get(Expression<Func<T, bool>> predicate, bool deleted = false)
     {
         var entity = await _context.Set<T>()
             .AsNoTracking()
@@ -209,7 +209,7 @@ public class GenericRepository<T, TId> : IGenericRepository<T, TId> where T : Ba
         return entity;
     }
 
-    public async Task<T> Get(Expression<Func<T, bool>>? predicate,
+    public async Task<T?> Get(Expression<Func<T, bool>>? predicate,
         Func<IQueryable<T>, IIncludableQueryable<T, object>>? include, bool deleted = false)
     {
         var query = _context.Set<T>().Where(t => t.IsDeleted == deleted)

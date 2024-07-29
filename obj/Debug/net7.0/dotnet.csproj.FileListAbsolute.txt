@@ -25,7 +25,6 @@
 /home/abbas/Allprojects/dotnet/obj/Debug/net7.0/staticwebassets.build.json
 /home/abbas/Allprojects/dotnet/obj/Debug/net7.0/staticwebassets.development.json
 /home/abbas/Allprojects/dotnet/obj/Debug/net7.0/scopedcss/bundle/dotnet.styles.css
-/home/abbas/Allprojects/dotnet/obj/Debug/net7.0/dotnet.csproj.CopyComplete
 /home/abbas/Allprojects/dotnet/obj/Debug/net7.0/dotnet.dll
 /home/abbas/Allprojects/dotnet/obj/Debug/net7.0/refint/dotnet.dll
 /home/abbas/Allprojects/dotnet/obj/Debug/net7.0/dotnet.pdb
@@ -56,3 +55,5 @@
 /home/abbas/Allprojects/dotnet/bin/Debug/net7.0/Swashbuckle.AspNetCore.Filters.dll
 /home/abbas/Allprojects/dotnet/bin/Debug/net7.0/Swashbuckle.AspNetCore.Filters.Abstractions.dll
 /home/abbas/Allprojects/dotnet/bin/Debug/net7.0/System.IdentityModel.Tokens.Jwt.dll
+/home/abbas/Allprojects/dotnet/obj/Debug/net7.0/dotnet.sourcelink.json
+/home/abbas/Allprojects/dotnet/obj/Debug/net7.0/dotnet.csproj.Up2Date
