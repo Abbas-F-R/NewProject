@@ -179,7 +179,6 @@ public class GenericRepository<T, TId> : IGenericRepository<T, TId> where T : Ba
         catch (Exception e)
         {
             Console.WriteLine(e.Message);
-            return null;
         }
 
 

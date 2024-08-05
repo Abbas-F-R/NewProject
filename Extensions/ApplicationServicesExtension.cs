@@ -1,6 +1,7 @@
 using dotnet.Interface;
 using dotnet.Services.AddressService;
 using dotnet.Services.AuthService;
+using dotnet.Services.ProductService;
 namespace dotnet.Extensions;
 
 public static class ApplicationServicesExtension

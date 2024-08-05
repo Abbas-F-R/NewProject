@@ -63,7 +63,7 @@ public class AddressService : IAddressService
     public async Task<(List<AddressDto>? Data, int? CountTotele, string? error)> GatAll(AddressFilter filter)
     {
         var (data, totalElements)  = await _wrapper.Address.GetAll(
-            a => a.Name == filter.Name);
+            a => a.Name == filter.Name, filter.PageSize, filter.PageNumber);
         var result = _mapper.Map<List<AddressDto>>(data);
         return (result, totalElements, null);
     }

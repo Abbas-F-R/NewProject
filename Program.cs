@@ -1,7 +1,6 @@
 global using System.ComponentModel.DataAnnotations;
 global using System.ComponentModel.DataAnnotations.Schema;
 global using Microsoft.EntityFrameworkCore;
-global using dotnet.Services.ProductService;
 global using AutoMapper;
 global using dotnet.Data;
 global using dotnet.Model;

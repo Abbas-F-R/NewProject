@@ -1,25 +1,17 @@
 using dotnet.Services.AuthService;
-using dotnet.Services.AuthService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dotnet.Controllers;
 
 [Route("api/[Controller]")]
 [ApiController]
-public class AuthController : ControllerBase
+public class AuthController(DatabaseContext context, IJwtService jwtService) : ControllerBase
 {
-    private readonly DatabaseContext _context;
-    private readonly IJwtService _jwtService;
-
-    public AuthController(DatabaseContext context, IJwtService jwtService)
-    {
-        _context = context;
-        _jwtService = jwtService;
-    }
+    private readonly DatabaseContext _context = context;
 
     [HttpPost("register")]
     public async Task<ActionResult<(Auth?, string? error)>> Register(UserDto request) =>
-        Ok(await _jwtService.Register(request) );
+        Ok(await jwtService.Register(request) );
     // {
     //     try
     //     {
@@ -35,7 +27,7 @@ public class AuthController : ControllerBase
 
     [HttpPost("login")]
     public async Task<ActionResult<(Auth?, string? error)>> Login(UserDto request) => 
-        Ok(await _jwtService.Login(request));
+        Ok(await jwtService.Login(request));
     // {
     //     try
     //     {

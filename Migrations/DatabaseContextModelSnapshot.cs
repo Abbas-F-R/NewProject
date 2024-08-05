@@ -17,7 +17,7 @@ namespace dotnet.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.0")
+                .HasAnnotation("ProductVersion", "8.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -60,8 +60,10 @@ namespace dotnet.Migrations
                     b.Property<int>("Longitude")
                         .HasColumnType("integer");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
                     b.Property<Guid?>("StoreId")
-                        .IsRequired()
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
@@ -74,7 +76,7 @@ namespace dotnet.Migrations
 
                     b.HasIndex("StoreId");
 
-                    b.ToTable("_address");
+                    b.ToTable("Address");
                 });
 
             modelBuilder.Entity("dotnet.Model.Cart", b =>
@@ -144,11 +146,9 @@ namespace dotnet.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("CategoryDescription")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("CategoryName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreationDate")
@@ -157,7 +157,7 @@ namespace dotnet.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
-                    b.Property<Guid>("StoreId")
+                    b.Property<Guid?>("StoreId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
@@ -183,14 +183,13 @@ namespace dotnet.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DistrictId");
 
-                    b.ToTable("city");
+                    b.ToTable("Cities");
                 });
 
             modelBuilder.Entity("dotnet.Model.DataFile", b =>
@@ -387,14 +386,12 @@ namespace dotnet.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<long>("NumberOfLikes")
@@ -417,7 +414,7 @@ namespace dotnet.Migrations
 
                     b.HasIndex("StoreId");
 
-                    b.ToTable("_product");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("dotnet.Model.ProductStatus", b =>
@@ -454,11 +451,9 @@ namespace dotnet.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("StoreName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("StorePhone")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<Guid>("UserId")
@@ -530,9 +525,7 @@ namespace dotnet.Migrations
 
                     b.HasOne("dotnet.Model.Store", "Store")
                         .WithMany("AddressList")
-                        .HasForeignKey("StoreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StoreId");
 
                     b.Navigation("City");
 
@@ -585,9 +578,7 @@ namespace dotnet.Migrations
                 {
                     b.HasOne("dotnet.Model.Store", "Store")
                         .WithMany("Categories")
-                        .HasForeignKey("StoreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StoreId");
 
                     b.Navigation("Store");
                 });

@@ -1,6 +1,6 @@
 namespace dotnet.DTOs.Product;
 
-public class ProductFilter
+public class ProductFilter : BaseFilter
 {
     public Guid? CategoryId { get; set; }
     public Guid? ProductStatus { get; set; }
