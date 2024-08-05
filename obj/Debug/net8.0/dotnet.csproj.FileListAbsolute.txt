@@ -113,9 +113,10 @@
 /home/abbas/Allprojects/dotnet/obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.dotnet.props
 /home/abbas/Allprojects/dotnet/obj/Debug/net8.0/staticwebassets.pack.json
 /home/abbas/Allprojects/dotnet/obj/Debug/net8.0/scopedcss/bundle/dotnet.styles.css
-/home/abbas/Allprojects/dotnet/obj/Debug/net8.0/dotnet.csproj.CopyComplete
 /home/abbas/Allprojects/dotnet/obj/Debug/net8.0/dotnet.dll
 /home/abbas/Allprojects/dotnet/obj/Debug/net8.0/refint/dotnet.dll
 /home/abbas/Allprojects/dotnet/obj/Debug/net8.0/dotnet.pdb
 /home/abbas/Allprojects/dotnet/obj/Debug/net8.0/dotnet.genruntimeconfig.cache
 /home/abbas/Allprojects/dotnet/obj/Debug/net8.0/ref/dotnet.dll
+/home/abbas/Allprojects/dotnet/bin/Debug/net8.0/System.Text.Json.dll
+/home/abbas/Allprojects/dotnet/obj/Debug/net8.0/dotnet.csproj.Up2Date

@@ -7,11 +7,9 @@ namespace dotnet.Controllers;
 [ApiController]
 public class AuthController(DatabaseContext context, IJwtService jwtService) : ControllerBase
 {
-    private readonly DatabaseContext _context = context;
 
     [HttpPost("register")]
-    public async Task<ActionResult<(Auth?, string? error)>> Register(UserDto request) =>
-        Ok(await jwtService.Register(request) );
+    public async Task<ActionResult<(Auth?, string? error)>> Register(UserDto request) => Ok(await jwtService.Register(request) );
     // {
     //     try
     //     {
@@ -26,8 +24,7 @@ public class AuthController(DatabaseContext context, IJwtService jwtService) : C
     // }
 
     [HttpPost("login")]
-    public async Task<ActionResult<(Auth?, string? error)>> Login(UserDto request) => 
-        Ok(await jwtService.Login(request));
+    public async Task<ActionResult<(Auth?, string? error)>> Login(UserDto request) => Ok(await jwtService.Login(request));
     // {
     //     try
     //     {

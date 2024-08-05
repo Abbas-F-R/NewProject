@@ -7,32 +7,25 @@ namespace dotnet.Controllers
 {
     [ApiController]
     [Route("api/products")]
-    public class ProductController : BaseController
+    public class ProductController(IProductService productService) : BaseController
     {
-        private readonly IProductService _productService;
-
-        public ProductController(IProductService productService)
-        {
-            _productService = productService;
-        }
-
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProductDto>> GetById(Guid id) => Ok(await _productService.Get(id));
+        public async Task<ActionResult<ProductDto>> GetById(Guid id) => Ok(await productService.Get(id));
 
         [HttpPost, Authorize(Roles = "User")]
-        public async Task<IActionResult> Create(ProductForm product) =>
-            Ok(await _productService.Create(product));
+        public async Task<IActionResult> Create([FromBody] ProductForm product) =>
+            Ok(await productService.Create(product));
 
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id) => Ok(await _productService.SoftDelete(id));
+        public async Task<IActionResult> Delete(Guid id) => Ok(await productService.SoftDelete(id));
 
         [HttpGet]
-        public async Task<IActionResult> FindAll([FromQuery] ProductFilter filter) => Ok(await _productService.GetAll(filter));
+        public async Task<IActionResult> FindAll([FromQuery] ProductFilter filter) => Ok(await productService.GetAll(filter));
 
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<ProductDto>> Update(Guid id,  ProductUpdate productUpdate) =>
-            Ok(await _productService.Update(productUpdate, id));
+        public async Task<ActionResult<ProductDto>> Update(Guid id,  [FromBody] ProductUpdate productUpdate) =>
+            Ok(await productService.Update(productUpdate, id));
     }
 }
