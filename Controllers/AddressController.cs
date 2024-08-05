@@ -4,23 +4,23 @@ using Microsoft.AspNetCore.Mvc;
 namespace dotnet.Controllers;
 
 [ApiController]
-[Route("api/products")]
+[Route("api/[Controller]")]
 public class AddressController(IAddressService addressService) : BaseController
 {
 
     [HttpGet("{id}")]
     public async Task<ActionResult<AddressDto>> Get(Guid id) => Ok(await addressService.Get(id));
     
-    [HttpPost("/create")]
+    [HttpPost("create")]
     public async Task<ActionResult<AddressDto>> Create([FromBody] AddressForm addressForm) => Ok(await addressService.Create(addressForm));
     
-    [HttpPut("/Update")]
+    [HttpPut("Update/{id}")]
     public async Task<ActionResult<AddressDto>> Update([FromBody] AddressUpdate addressUpdate, Guid id) => Ok(await addressService.Update(addressUpdate, id));
     
-    [HttpDelete("SoftDelete")]
+    [HttpDelete("softDelete/{id}")]
     public async Task<ActionResult<AddressDto>> SoftDelete(Guid id) => Ok(await addressService.SoftDelete(id));
     
-    [HttpGet("/GetAll")]
+    [HttpGet("all")]
     public async Task<ActionResult<List<AddressDto>>> GetAll([FromQuery]AddressFilter filter) => Ok(await addressService.GatAll(filter));
     
     

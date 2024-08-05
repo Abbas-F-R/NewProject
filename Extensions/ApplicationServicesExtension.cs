@@ -1,6 +1,7 @@
 using dotnet.Interface;
 using dotnet.Services.AddressService;
 using dotnet.Services.AuthService;
+using dotnet.Services.ClothesService;
 using dotnet.Services.ProductService;
 namespace dotnet.Extensions;
 
@@ -21,6 +22,7 @@ public static class ApplicationServicesExtension
         services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
         services.AddScoped<IJwtService, JwtService>(); 
         services.AddScoped<IAddressService, AddressService>();
+        services.AddScoped<IClothesService, ClothesService>();
 
         //
         // services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();

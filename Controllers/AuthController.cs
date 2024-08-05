@@ -5,7 +5,7 @@ namespace dotnet.Controllers;
 
 [Route("api/[Controller]")]
 [ApiController]
-public class AuthController(DatabaseContext context, IJwtService jwtService) : ControllerBase
+public class AuthController(IJwtService jwtService) : ControllerBase
 {
 
     [HttpPost("register")]
