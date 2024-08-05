@@ -25,7 +25,7 @@ namespace dotnet.Controllers
 
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<ProductDto>> Update(Guid id,  [FromBody] ProductUpdate productUpdate) =>
+        public async Task<ActionResult<ProductDto>> Update(Guid id, [FromBody] ProductUpdate productUpdate) =>
             Ok(await productService.Update(productUpdate, id));
     }
 }

@@ -3,6 +3,8 @@ using dotnet.Services.AddressService;
 using Microsoft.AspNetCore.Mvc;
 namespace dotnet.Controllers;
 
+[ApiController]
+[Route("api/products")]
 public class AddressController(IAddressService addressService) : BaseController
 {
 

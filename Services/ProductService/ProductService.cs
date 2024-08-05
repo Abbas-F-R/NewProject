@@ -9,7 +9,7 @@ namespace dotnet.Services.ProductService
 
         public async Task<(ProductDto?, string? error)> Get(Guid id)
         {
-            var result = await wrapper.Product.Get(x => x.Id == id);
+            var result = await wrapper.Product.Get(p => p.Id == id ,x => x.Include(y => y.ProductVariants)!);
             if (result == null)
                 return (null, " Product not found");
             return (mapper.Map<ProductDto>(result), null);
@@ -68,11 +68,11 @@ namespace dotnet.Services.ProductService
        
         public async Task<(List<ProductDto> product, int? totalCount, string? error)> GetAll(ProductFilter filter)
         {
-            var (data, totalElements) = await wrapper.Product.GetAll<ProductForm>(p =>
+            var (data, totalElements) = await wrapper.Product.GetAll(p =>
                     (!filter.CategoryId.HasValue || p.CategoryId == filter.CategoryId.Value) &&
                     (!filter.ProductStatus.HasValue || p.ProductStatusId == filter.ProductStatus.Value) &&
                     (!filter.LowestPrice.HasValue || p.Price >= filter.LowestPrice.Value) &&
-                    (!filter.HighestPrice.HasValue || p.Price <= filter.HighestPrice.Value), filter.PageNumber, filter.PageSize);
+                    (!filter.HighestPrice.HasValue || p.Price <= filter.HighestPrice.Value),x => x.Include(y => y.ProductVariants)!, filter.PageNumber, filter.PageSize);
             var result = mapper.Map<List<ProductDto>>(data);
             return (result, totalElements, null);
         }

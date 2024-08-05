@@ -9,7 +9,7 @@ namespace dotnet.Model
         public long NumberOfLikes { get; set; }
         public Guid ProductStatusId { get; set; }
         public ProductStatus? ProductStatus { get; set; }
-        public List<ProductDetails>? ProductDetails { get; set; }
+        public List<ProductVariant>? ProductVariants { get; set; }
         public List<OrderItem>? OrderItems { get; set; }
         public List<DataFile>? DataFiles { get; set; }
         public List<LikeProduct>? LikesOfProduct { get; set; }

@@ -7,6 +7,7 @@ global using dotnet.Model;
 global using dotnet.Base;
 global using dotnet.Enums;
 global using dotnet.DTOs;
+global using dotnet.DTOs.Clothes;
 global using dotnet.Repository;
 
 using dotnet.Extensions;
