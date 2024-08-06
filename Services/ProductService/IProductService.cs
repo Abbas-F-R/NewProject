@@ -9,6 +9,6 @@ public interface IProductService
     Task<(ProductDto?,  string? error)> Create(ProductForm entity);
     Task<(ProductDto?,  string? error)> SoftDelete(Guid id);
     Task<(ProductDto?,  string? error)> Update( ProductUpdate update, Guid id);
-    Task<(List<ProductDto> product, int? totalCount, string? error)> GetAll(ProductFilter filter);
+    Task<(List<ProductForm> product, int? totalCount, string? error)> GetAll(ProductFilter filter);
 }
 

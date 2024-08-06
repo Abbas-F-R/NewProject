@@ -1,7 +1,7 @@
-namespace dotnet.DTOs.Product
+namespace dotnet.DTOs.Book;
+
+public class BookForm
 {
-    public class ProductForm
-    {
     public Guid Id { get; set; }
     public required string Name { get; set; }
     public required string ProductDescription { get; set; }
@@ -12,6 +12,8 @@ namespace dotnet.DTOs.Product
     public required string Status { get; set; }
     public List<ProductVariant>? ProductVariants { get; set; }
 
-    }
+    public string? Author { get; set; }
+    public string? Isbn { get; set; }
+    public int PageCount { get; set; }
     
 }

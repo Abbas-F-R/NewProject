@@ -1,9 +1,7 @@
-using System;
+namespace dotnet.DTOs.Book;
 
-namespace dotnet.DTOs.Product
+public class BookDto
 {
-    public class ProductDto
-    {
     public string? Name{get; set;}
     public string? Description{get; set;}
     public long Price{get; set;}
@@ -11,7 +9,7 @@ namespace dotnet.DTOs.Product
     public Guid? StoreId{get; set;}
     public List<ProductVariant>? ProductVariants { get; set; }
 
-
-
-    }
+    public string? Author { get; set; }
+    public string? Isbn { get; set; }
+    public int PageCount { get; set; }
 }

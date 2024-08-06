@@ -66,14 +66,14 @@ namespace dotnet.Services.ProductService
 
 
        
-        public async Task<(List<ProductDto> product, int? totalCount, string? error)> GetAll(ProductFilter filter)
+        public async Task<(List<ProductForm> product, int? totalCount, string? error)> GetAll(ProductFilter filter)
         {
             var (data, totalElements) = await wrapper.Product.GetAll(p =>
                     (!filter.CategoryId.HasValue || p.CategoryId == filter.CategoryId.Value) &&
                     (!filter.ProductStatus.HasValue || p.ProductStatusId == filter.ProductStatus.Value) &&
                     (!filter.LowestPrice.HasValue || p.Price >= filter.LowestPrice.Value) &&
                     (!filter.HighestPrice.HasValue || p.Price <= filter.HighestPrice.Value),x => x.Include(y => y.ProductVariants)!, filter.PageNumber, filter.PageSize);
-            var result = mapper.Map<List<ProductDto>>(data);
+            var result = mapper.Map<List<ProductForm>>(data);
             return (result, totalElements, null);
         }
     }

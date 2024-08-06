@@ -58,14 +58,14 @@ public class ClothesService(IRepositoryWrapper wrapper , IMapper mapper) : IClot
         
     }
     
-    public async Task<(List<ClothesDto> product, int? totalCount, string? error)> GetAll(ClothesFilter filter)
+    public async Task<(List<ClothesForm> product, int? totalCount, string? error)> GetAll(ClothesFilter filter)
     {
         var (data, totalElements) = await wrapper.Clothes.GetAll(p =>
             (!filter.CategoryId.HasValue || p.CategoryId == filter.CategoryId.Value) &&
             (!filter.ProductStatus.HasValue || p.ProductStatusId == filter.ProductStatus.Value) &&
             (!filter.LowestPrice.HasValue || p.Price >= filter.LowestPrice.Value) &&
             (!filter.HighestPrice.HasValue || p.Price <= filter.HighestPrice.Value), x => x.Include(y => y.ProductVariants)! ,  filter.PageNumber, filter.PageSize);
-        var result = mapper.Map<List<ClothesDto>>(data);
+        var result = mapper.Map<List<ClothesForm>>(data);
         return (result, totalElements, null);
     }
 }

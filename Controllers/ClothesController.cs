@@ -9,7 +9,7 @@ namespace dotnet.Controllers;
 public class ClothesController(IClothesService service) : BaseController
 {
     [HttpGet("{id}")]
-    public async Task<ActionResult<ClothesDto>> GetById(Guid id) => Ok(await service.Get(id));
+    public async Task<ActionResult> GetById(Guid id) => Ok(await service.Get(id));
 
     [HttpPost("Create"), Authorize(Roles = "User")]
     public async Task<IActionResult> Create([FromBody] ClothesForm form) =>
@@ -23,6 +23,6 @@ public class ClothesController(IClothesService service) : BaseController
     public async Task<IActionResult> FindAll([FromQuery] ClothesFilter filter) => Ok(await service.GetAll(filter));
 
     [HttpPut("Update/{id}")]
-    public async Task<ActionResult<ProductDto>> Update(Guid id, [FromBody] ClothesUpdate update) =>
+    public async Task<ActionResult> Update(Guid id, [FromBody] ClothesUpdate update) =>
         Ok(await service.Update(update, id));
 }
