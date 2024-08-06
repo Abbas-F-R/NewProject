@@ -7,7 +7,7 @@ namespace dotnet.Controllers;
 [ApiController]
 public class AuthController(IJwtService jwtService) : ControllerBase
 {
-
+ 
     [HttpPost("register")]
     public async Task<ActionResult<(Auth?, string? error)>> Register(UserDto request) => Ok(await jwtService.Register(request) );
     // {
