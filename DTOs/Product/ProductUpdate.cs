@@ -1,4 +1,4 @@
-namespace dotnet.DTOs;
+namespace dotnet.DTOs.Product;
 
 public class ProductUpdate
 {
@@ -7,4 +7,6 @@ public class ProductUpdate
     public long? Price { get; set; }
     public Guid? CategoryId { get; set; }
     public Guid? StoreId { get; set; }
+    public List<string>? FilePath { get; set; }
+
 }

@@ -16,7 +16,7 @@ namespace dotnet.Data
         public DbSet<District> Districts { get; set;}
         public DbSet<City> Cities { get; set;}
         public DbSet<Governorate> Governorates { get; set;}
-        public DbSet<DataFile> DataFiles { get; set;}
+        // public DbSet<DataFile> DataFiles { get; set;}
         public DbSet<Category> Categories { get; set;}
         public DbSet<LikeProduct> LikeProducts { get; set;}
         public DbSet<ProductStatus> ProductStatus { get; set;}

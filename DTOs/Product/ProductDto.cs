@@ -1,5 +1,3 @@
-using System;
-
 namespace dotnet.DTOs.Product
 {
     public class ProductDto
@@ -10,6 +8,7 @@ namespace dotnet.DTOs.Product
     public Guid? CategoryId{get; set;}
     public Guid? StoreId{get; set;}
     public List<ProductVariant>? ProductVariants { get; set; }
+    public List<string>? FilePath { get; set; }
 
 
 

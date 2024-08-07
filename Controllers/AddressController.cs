@@ -1,5 +1,4 @@
 using dotnet.DTOs.Address;
-using dotnet.DTOs.Product;
 using dotnet.Services.AddressService;
 using Microsoft.AspNetCore.Mvc;
 namespace dotnet.Controllers;

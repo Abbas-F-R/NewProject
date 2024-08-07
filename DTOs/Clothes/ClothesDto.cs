@@ -9,6 +9,8 @@ public class ClothesDto
     public Guid? StoreId{get; set;}
     public string? Material { get; set; }
     public List<ProductVariant>? ProductVariants { get; set; }
+    public List<string>? FilePath { get; set; }
+
 
 
 

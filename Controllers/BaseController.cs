@@ -1,11 +1,12 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
+using FileResult = dotnet.DTOs.Files.FileResult;
 
 namespace dotnet.Controllers;
 
 public class BaseController : ControllerBase
 {
-    
+
     protected Guid Id => Guid.TryParse(GetClaim("Id"), out var id) ? id : Guid.Empty;
     protected string Role => GetClaim("Role");
     protected Guid? ParentId
@@ -33,7 +34,7 @@ public class BaseController : ControllerBase
 
         return rr ?? "";
     }
-    
+
     protected ObjectResult OkObject<T>((T? data, string? error) result)
     {
         return result.error != null
@@ -63,4 +64,12 @@ public class BaseController : ControllerBase
             ? base.BadRequest(new { Message = result.error })
             : base.Ok(result.obj);
     }
+    protected IActionResult OkFile((FileResult? data, string? error) result)
+    {
+        return result.error != null
+            ? base.BadRequest(new { Message = result.error })
+            : File(result.data.FileBytes, result.data.ContentType, result.data.FileName);
+    }
+
+
 }

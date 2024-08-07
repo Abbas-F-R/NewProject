@@ -1,4 +1,3 @@
-using dotnet.DTOs.Product;
 using dotnet.Services.ClothesService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

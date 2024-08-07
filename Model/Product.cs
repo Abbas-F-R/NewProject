@@ -11,7 +11,7 @@ namespace dotnet.Model
         public ProductStatus? ProductStatus { get; set; }
         public List<ProductVariant>? ProductVariants { get; set; }
         public List<OrderItem>? OrderItems { get; set; }
-        public List<DataFile>? DataFiles { get; set; }
+        public List<string>? FilePath { get; set; }
         public List<LikeProduct>? LikesOfProduct { get; set; }
         public Guid CategoryId { get; set; }
         public Category? Category { get; set; }

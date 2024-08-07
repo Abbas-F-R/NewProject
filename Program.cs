@@ -9,6 +9,8 @@ global using dotnet.Enums;
 global using dotnet.DTOs;
 global using dotnet.DTOs.Clothes;
 global using dotnet.Repository;
+global using dotnet.DTOs.Files;
+
 
 using dotnet.Extensions;
 

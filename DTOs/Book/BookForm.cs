@@ -11,6 +11,7 @@ public class BookForm
     public Guid? CategoryId { get; set; }
     public required string Status { get; set; }
     public List<ProductVariant>? ProductVariants { get; set; }
+    public List<string>? FilePath { get; set; }
 
     public string? Author { get; set; }
     public string? Isbn { get; set; }

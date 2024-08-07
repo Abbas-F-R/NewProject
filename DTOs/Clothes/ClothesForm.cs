@@ -12,6 +12,8 @@ public class ClothesForm
     public required string Status { get; set; }
     public string? Material { get; set; }
     public List<ProductVariant>? ProductVariants { get; set; }
+    public List<string>? FilePath { get; set; }
+
 
 
 }
