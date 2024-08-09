@@ -3,12 +3,12 @@ namespace dotnet.Helper;
 
 public static class Common
 {
-    public static string GetCurrentDirectory()
+    private static string GetCurrentDirectory()
     {
         var result = Directory.GetCurrentDirectory();
         return result;
     }
-    public static string GetStaticContentDirectory()
+    private static string GetStaticContentDirectory()
     {
         var result = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot" );
         if (!Directory.Exists(result))

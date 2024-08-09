@@ -7,6 +7,7 @@ namespace dotnet.Model
         public string? Description { get; set; }
         public double Price { get; set; }
         public long NumberOfLikes { get; set; }
+        public DateTime UpdateDate { get; set; }
         public Guid ProductStatusId { get; set; }
         public ProductStatus? ProductStatus { get; set; }
         public List<ProductVariant>? ProductVariants { get; set; }

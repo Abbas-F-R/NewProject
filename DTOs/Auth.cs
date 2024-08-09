@@ -2,13 +2,11 @@ namespace dotnet.DTOs;
 
 public class Auth
 {
-    public Auth(User user, string token)
+    public string? Username { get; set; } 
+    public string? Token { get; set; }
+    public Auth(string username, string token)
     {
-        User = user;
+        Username = username;
         Token = token;
     }
-
-    public User User { get; set; }
-    public string Token { get; set; }
-    
 }

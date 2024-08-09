@@ -68,7 +68,7 @@ public class BaseController : ControllerBase
     {
         return result.error != null
             ? base.BadRequest(new { Message = result.error })
-            : File(result.data.FileBytes, result.data.ContentType, result.data.FileName);
+            : File(result.data!.FileBytes, result.data.ContentType, result.data.FileName);
     }
 
 

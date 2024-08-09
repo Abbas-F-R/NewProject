@@ -64,7 +64,8 @@ public class ClothesService(IRepositoryWrapper wrapper , IMapper mapper) : IClot
             (!filter.CategoryId.HasValue || p.CategoryId == filter.CategoryId.Value) &&
             (!filter.ProductStatus.HasValue || p.ProductStatusId == filter.ProductStatus.Value) &&
             (!filter.LowestPrice.HasValue || p.Price >= filter.LowestPrice.Value) &&
-            (!filter.HighestPrice.HasValue || p.Price <= filter.HighestPrice.Value), x => x.Include(y => y.ProductVariants)! ,  filter.PageNumber, filter.PageSize);
+            (!filter.HighestPrice.HasValue || p.Price <= filter.HighestPrice.Value) &&
+            (string.IsNullOrEmpty(filter.Material) || p.Material == filter.Material), x => x.Include(y => y.ProductVariants)! ,  filter.PageNumber, filter.PageSize);
         var result = mapper.Map<List<ClothesForm>>(data);
         return (result, totalElements, null);
     }

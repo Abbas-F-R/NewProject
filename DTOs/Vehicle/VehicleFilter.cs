@@ -1,6 +1,7 @@
-namespace dotnet.Model;
+using dotnet.DTOs.Product;
+namespace dotnet.DTOs.Vehicle;
 
-public class Vehicle : Product
+public class VehicleFilter: ProductFilter
 {
     public string? Make { get; set; } // العلامة التجارية
     public string? Model { get; set; } // النموذج

@@ -1,5 +1,4 @@
 using dotnet.DTOs.Address;
-using dotnet.Interface;
 namespace dotnet.Services.AddressService;
 
 public class AddressService(IRepositoryWrapper wrapper, IMapper mapper) : IAddressService

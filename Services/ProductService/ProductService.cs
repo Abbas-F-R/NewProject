@@ -1,5 +1,4 @@
 using dotnet.DTOs.Product;
-using dotnet.Interface;
 
 namespace dotnet.Services.ProductService
 {
@@ -9,20 +8,21 @@ namespace dotnet.Services.ProductService
 
         public async Task<(ProductDto?, string? error)> Get(Guid id)
         {
-            var result = await wrapper.Product.Get(p => p.Id == id ,x => x.Include(y => y.ProductVariants)!);
+            var result = await wrapper.Product.Get(p => p.Id == id, x => x.Include(y => y.ProductVariants)!);
             if (result == null)
                 return (null, " Product not found");
             return (mapper.Map<ProductDto>(result), null);
         }
 
 
-        public async Task<(ProductDto?, string? error)> Create(ProductForm dto)
+        public async Task<(ProductDto?, string? error)> Create(ProductForm form)
         {
-            var product = mapper.Map<Product>(dto);
-            if (dto.CategoryId == null && dto.StoreId == null)
+            var product = mapper.Map<Product>(form);
+            if (form.CategoryId == null && form.StoreId == null)
             {
                 return (null, "Both CategoryId and StoreId cannot be null.");
             }
+
             var category = await wrapper.Category.Get(x => x.Id == product.CategoryId);
             if (category == null)
             {
@@ -41,7 +41,7 @@ namespace dotnet.Services.ProductService
             var result = await wrapper.Product.Add(product);
             return (mapper.Map<ProductDto>(result), null);
         }
-       
+
 
 
         public async Task<(ProductDto?, string? error)> Update(ProductUpdate productUpdate, Guid id)
@@ -54,7 +54,7 @@ namespace dotnet.Services.ProductService
             var result = await wrapper.Product.Update(product);
             return (mapper.Map<ProductDto>(result), null);
         }
-        
+
         public async Task<(ProductDto?, string? error)> SoftDelete(Guid id)
         {
             var result = await wrapper.Product.GetById(id);
@@ -65,15 +65,16 @@ namespace dotnet.Services.ProductService
         }
 
 
-       
-        public async Task<(List<ProductForm> product, int? totalCount, string? error)> GetAll(ProductFilter filter)
+
+        public async Task<(List<ProductDto> product, int? totalCount, string? error)> GetAll(ProductFilter filter)
         {
             var (data, totalElements) = await wrapper.Product.GetAll(p =>
                     (!filter.CategoryId.HasValue || p.CategoryId == filter.CategoryId.Value) &&
                     (!filter.ProductStatus.HasValue || p.ProductStatusId == filter.ProductStatus.Value) &&
                     (!filter.LowestPrice.HasValue || p.Price >= filter.LowestPrice.Value) &&
-                    (!filter.HighestPrice.HasValue || p.Price <= filter.HighestPrice.Value),x => x.Include(y => y.ProductVariants)!, filter.PageNumber, filter.PageSize);
-            var result = mapper.Map<List<ProductForm>>(data);
+                    (!filter.HighestPrice.HasValue || p.Price <= filter.HighestPrice.Value),
+                x => x.Include(y => y.ProductVariants)!, filter.PageNumber, filter.PageSize);
+            var result = mapper.Map<List<ProductDto>>(data);
             return (result, totalElements, null);
         }
     }

@@ -20,6 +20,8 @@ public class RepositoryWrapper(DatabaseContext context, IMapper mapper) : IRepos
     private IStoreRepository? _store;
     private IUserRepository? _user;
     private IClothesRepository? _clothes;
+    private IVehicleRepository? _vehicles;
+
 
     public IAddressRepository Address => _address ??= new AddressRepository(context, mapper);
     public ICartRepository Cart => _cart ??= new CartRepository(context, mapper);
@@ -36,4 +38,5 @@ public class RepositoryWrapper(DatabaseContext context, IMapper mapper) : IRepos
     public IStoreRepository Store => _store ??= new StoreRepository(context, mapper);
     public IUserRepository User => _user ??= new UserRepository(context, mapper);
     public IClothesRepository Clothes => _clothes ??= new ClothesRepository(context, mapper);
+    public IVehicleRepository Vehicles => _vehicles??= new VehicleRepository(context, mapper); 
 }

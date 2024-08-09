@@ -25,6 +25,7 @@ public static class ApplicationServicesExtension
         services.AddScoped<IAddressService, AddressService>();
         services.AddScoped<IClothesService, ClothesService>();
         services.AddScoped<IFileService, FileService>();
+        services.AddScoped<IVehicleRepository, VehicleRepository>();
 
 
         //

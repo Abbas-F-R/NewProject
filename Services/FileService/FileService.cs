@@ -58,9 +58,9 @@ public class FileService : IFileService
             };
             return (file , null);
         }
-        catch (Exception ex)
+        catch 
         {
-            return (null, "حدث خطأ أثناء تنزيل الملف:");
+            return (null, "حدث خطأ أثناء تنزيل الملف:" );
         }
     }
 
@@ -73,6 +73,13 @@ public class FileService : IFileService
             ".png" => "image/png",
             ".txt" => "text/plain",
             ".html" => "text/html",
+            ".mp4" => "video/mp4",
+            ".avi" => "video/x-msvideo",
+            ".mov" => "video/quicktime",
+            ".wmv" => "video/x-ms-wmv",
+            ".flv" => "video/x-flv",
+            ".mkv" => "video/x-matroska",
+            ".webm" => "video/webm",
             // Add more mappings as needed
             _ => "application/octet-stream" // Default MIME type for unknown files
         };

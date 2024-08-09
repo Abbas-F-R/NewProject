@@ -1,11 +1,7 @@
+using dotnet.DTOs.Product;
 namespace dotnet.DTOs.Clothes;
 
-public class ClothesFilter : BaseFilter
+public class ClothesFilter : ProductFilter
 {
-    public Guid? CategoryId { get; set; }
-    public Guid? ProductStatus { get; set; }
-    public long? LowestPrice { get; set; }
-    public long? HighestPrice { get; set; }
     public string? Material { get; set; }
-
 }

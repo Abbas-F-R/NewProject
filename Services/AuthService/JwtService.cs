@@ -6,20 +6,16 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace dotnet.Services.AuthService;
 
-public class JwtService : IJwtService
+public class JwtService(IConfiguration config,IRepositoryWrapper wrapper) : IJwtService
 {
-    private readonly IConfiguration _config;
-    private readonly DatabaseContext _context;
-
-    public JwtService(IConfiguration config, DatabaseContext context)
-    {
-        _config = config;
-        _context = context;
-    }
 
     public async Task<(Auth?, string? error)> Register(UserDto request)
     {
-        if (ValidateUserAsync(request.Username).Result != null) return (null, "Username taken ");
+        // Check if the username is already taken
+        var existingUser = await wrapper.User.Get(u => u.Username == request.Username);
+        if (existingUser != null)
+            return (null, "Username taken");
+    
         string hashPassword = BCrypt.Net.BCrypt.HashPassword(request.Password);
 
         var user = new User
@@ -28,24 +24,30 @@ public class JwtService : IJwtService
             Username = request.Username,
             Role = Role.User,
         };
-        _context.Add(user);
-        await _context.SaveChangesAsync();
 
-        string token = CreateToken(user);
-        // RefreshToken refreshToken = GenerateRefreshToken();
-        var auth = new Auth(user, token);
-        return (auth , null);
+        // Add user via repository wrapper
+        await wrapper.User.Add(user);
+
+        var token = CreateToken(user);
+        var auth = new Auth(user.Username, token);
+
+        Console.WriteLine("Auth: " + auth.Token + "\n\n\n\n\n\n\n\n\n" + auth.Username);
+
+        return (auth, null);
     }
 
     public async Task<(Auth?, string? error)> Login(UserDto request)
     {
-        var userSaved = await ValidateUserAsync(request.Username); // Await the asynchronous call
-        if (userSaved == null) return (null, "User not found");
-        if (!BCrypt.Net.BCrypt.Verify(request.Password, userSaved.PasswordHash)) return (null, "Wrong password");
+        // Check if the user exists and verify password
+        var userSaved = await wrapper.User.Get(u => u.Username == request.Username);
+        if (userSaved == null) 
+            return (null, "User not found");
+                
+        if (!BCrypt.Net.BCrypt.Verify(request.Password, userSaved.PasswordHash)) 
+            return (null, "Wrong password");
         
-        string token = CreateToken(userSaved);
-        // RefreshToken refreshToken = GenerateRefreshToken();
-        var auth = new Auth(userSaved, token);
+        var token = CreateToken(userSaved);
+        var auth = new Auth(userSaved.Username, token);
         return (auth, null);
     }
     //
@@ -87,7 +89,7 @@ public class JwtService : IJwtService
             new Claim(ClaimTypes.Role, user.Role.ToString()),
         };
 
-        var tokenKey = _config.GetSection("AppSettings:Token").Value;
+        var tokenKey = config.GetSection("AppSettings:Token").Value;
         if (string.IsNullOrEmpty(tokenKey))
         {
             throw new InvalidOperationException("Token key is not configured properly.");
@@ -118,9 +120,5 @@ public class JwtService : IJwtService
     //     return refreshToken;
     // }
     //
-    private async Task<User?> ValidateUserAsync(string username)
-    {
-        var userSaved = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
-        return userSaved ;
-    }
+   
 }

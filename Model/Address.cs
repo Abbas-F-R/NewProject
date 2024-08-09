@@ -3,11 +3,9 @@ namespace dotnet.Model
     public class Address : BaseEntity
     {
         public string? Name { get; set; }
-
-        public required List<Order> Orders { get; set; } = new List<Order>();
-
-        public required string AddressLine { get; set; }
-        public required string FullAddress { get; set; }
+        public  List<Order>? Orders { get; set; } = new List<Order>();
+        public string? AddressLine { get; set; }
+        public  string? FullAddress { get; set; }
 
         public int Latitude { get; set; }
         public int Longitude { get; set; }

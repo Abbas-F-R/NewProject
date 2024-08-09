@@ -17,4 +17,5 @@ public interface IRepositoryWrapper
     IStoreRepository Store { get; }
     IUserRepository User { get; }
     IClothesRepository Clothes { get; }
+    IVehicleRepository Vehicles { get; }
 }

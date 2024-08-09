@@ -1,4 +1,4 @@
-namespace dotnet.DTOs;
+namespace dotnet.DTOs.AppUser;
 
 public class UserDto
 {
